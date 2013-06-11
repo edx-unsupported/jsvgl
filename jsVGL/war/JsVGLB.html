@@ -1,0 +1,78 @@
+<!doctype html>
+
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+
+    <link type="text/css" rel="stylesheet" href="JsVGL.css">
+
+    <title>Virtual Genetics Lab 13: Incomplete Dominance</title>
+    
+    <script type="text/javascript" language="javascript" src="jsvgl/jsvgl.nocache.js"></script>
+    <script type="text/javascript" language="javascript">
+     	var Params = {
+    		SuperCrossEnabled: "false",
+    		ZZ_ZW: "0.0",
+			Gene1_SexLinked: "0.0",
+			Gene1_IncDom: "1.0"
+    	};
+    	
+    	function save() {
+    		document.getElementById('state').value = window.getStateXML();
+    		document.getElementById('grade').value = window.getGradeXML();
+    	}
+    	
+    	function load() {
+    		window.setStateXML(document.getElementById('state').value);
+    	}
+    </script>
+  </head>
+
+  <body>
+    
+    <!-- RECOMMENDED if your web app will not function without JavaScript enabled -->
+    <noscript>
+      <div style="width: 22em; position: absolute; left: 50%; margin-left: -11em; color: red; background-color: white; border: 1px solid red; padding: 4px; font-family: sans-serif">
+        Your web browser must have JavaScript enabled
+        in order for this application to display correctly.
+      </div>
+    </noscript>
+
+    <h1>Virtual Genetics Lab 13: Incomplete Dominance</h1>
+
+    <table align="center">
+      <tr>
+      	<td>
+      		<table>
+      			<tr>
+      				<td id="newPracticeProblemButtonContainer"></td>
+      				<td id="newGradedProblemButtonContainer"></td>
+      				<td id="clearWorkspaceButtonContainer"></td>
+      				<td></td>
+      			</tr>
+      			<tr>
+      				<td><button onClick="save();">Save</button></td>
+      				<td><button onClick="load();">Load</button></td>
+      			</tr>
+      		</table>
+      	</td>
+         <td id="crossButtonContainer"></td>
+      </tr>
+       <tr>
+        <td id="mainPanelContainer"></td>
+        <td id="cagesContainer"></td>
+     </tr>
+    </table>
+    <hr>
+    <table border="1">
+      <tr>
+      	<th>State info</th>
+      	<th>Grade info</th>
+      </tr>
+      <tr>
+        <td><textarea rows="20" cols="30" id="state"></textarea></td>
+        <td><textarea rows="20" cols="30" id="grade"></textarea></td>
+      </tr>
+    </table>
+  </body>
+</html>

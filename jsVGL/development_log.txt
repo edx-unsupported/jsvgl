@@ -1,0 +1,257 @@
+3/5/13
+GOALS:
+- javascript vgl
+- run from params (no .pr2 files)
+	(like the version for edx)
+- save state to server
+- grade on server
+
+started off
+in eclipse
+- new google -> web application project
+- team -> share project via git
+- repo is /Users/briantwhite/git/JavaCodeFromSVN/
+- team -> add to index
+- team -> commit (initial commit)
+- team -> push to upstream
+
+worked.
+
+nuked useless stuff:
+-src/edu.umb.jsVGL/client
+	GreetingService & GreetingServiceAsnych
+package edu.umb.jsVGL.server
+package edu.umb.jsVGL.shared
+
+moved in packages
+- make new package eg edu.umb.jsVGL.client.GeneticModels
+- go into VGLII/GeneticModels
+- select all; copy
+- click new package; paste
+
+for images, may want to use ImageBundle
+http://mangstacular.blogspot.com/2012/01/gwt-image-bundles.html
+http://code.google.com/p/google-web-toolkit-doc-1-5/wiki/DevGuideDefiningAndUsingImageBundle
+
+
+
+moved to home mac
+needed to adjust build path to add App Engine SDK 1.7.4 
+	this eliminates the red exclamation point
+
+start resolving errors:
+xml stuff 
+	- should be: com.google.gwt.xml.client.Document etc.
+	- can't make an Element directly
+		need to http://stackoverflow.com/questions/6895322/create-xml-document-on-gwt-client-side
+			make a doc and have it make element from a document
+		but it can't find the type com.google.gwt.xml.Element even though it's being imported
+		need to add the jar
+			tried from http://mvnrepository.com/artifact/com.google.gwt/gwt-user/1.6.4
+			got http://repo1.maven.org/maven2/com/google/gwt/gwt-user/1.6.4/gwt-user-1.6.4.jar
+			made folder jsVGL/library (it's in git/)
+				put the jar in there
+				Project -> java build path
+					added jar - gwt-user-1.6.4.jar
+				Build project - now OK
+it might be better to (from: https://developers.google.com/web-toolkit/doc/latest/DevGuideCodingBasicsXML)
+	To get to the DOM nodes from the Document object, we can use one of three methods. 
+	The getDocumentElement() method retrieves the document element (the top element at the root of the DOM tree) 
+	as an Element. We can then use the navigation methods of the Node class from which Element derives 
+	(e.g., getChildNodes(), getNextSibling(), getParentNode(), etc.) to drill down and retrieve the data we need.
+
+maybe use getDocumentELement()?
+
+also, don't addContent(), instead appendChild()
+
+also nuke out all i18n
+
+3/6/12
+also nuke out all HTML for grading stuff
+
+for the jDialog()'s (all the cages, etc) => use DialogBox
+
+3/7/13
+still working on xml
+for the moment, leave out:
+	- model builder
+	- phenotype images
+	- cage manager
+comment the out in VGL for now
+
+3/8/13
+tried to build
+it couldn't find Unable to find 'com/google/gwt/xml/client.gwt.xml'
+maybe they're in the classes in gwt-user.jar?
+don't download the jar
+in project -> properties -> build path
+	add it as external jar
+		Mac HD/Applications/eclipse/plugins/com.google...../gwt-2.5.0/gwt-user.jar
+			(found using spotlinght)
+still ng
+maybe it was just that I didn't need the line in the JsVGL.gwt.xml file that read
+	<!--    <inherits name='com.google.gwt.xml.client.'/> -->
+
+
+3/9/13
+nuked phenotype images
+
+testing git fuckups
+
+3/10/13
+still trouble with xml code
+googled: eclipse "no source code is available for type com.google.gwt.xml"
+https://groups.google.com/forum/?fromgroups=#!topic/google-web-toolkit/tnlRUoaE6ME
+added this to JsVGL.gwt.xml
+finally OK
+ <inherits name ="com.google.gwt.xml.XML"/> 
+
+ - got the UI basically working
+ 
+3/11/13
+need to put on hold
+things to do:
+1) punt summary chart for now
+2) have "close work without saving" button to get to new problem
+3) need "load work" button
+4) disable save in practice mode
+5) check inter-cage crosses
+6) need to make edx-interaction
+
+
+3/12/13
+testing git nonsense
+now from eclipse
+
+4/3/13
+working on model builder ui
+left off in model pane fixing all errors
+
+4/9/13
+lots of work on Model Builder
+
+4/11/13 prefixed all .css styles with jsVGL_ to avoid conflicts with edx and other cms's
+working on ThreeIncPanel
+
+4/15/13 finished all MBUI panels' layouts
+working on grader output
+
+popup cages are a pain
+	they don't drag nicely
+	they overlap and it's hard to bring them to the front
+	they cover the controls
+	they'll be messy in a web-based environment
+put them in scrollable list
+
+4/16/13
+working on non-popup cages
+got them working
+working on save state - ok all but ModelBuilderState
+working on load state - ok all but ModelBuilderState!
+
+4/18/13
+working on loading model builder state
+only part NG is getting the interaction details panel to change
+
+programmatically changing the ListBox doesn't fire a ChangeEvent
+	you have to do it yourself
+	- works!
+
+need to be able to zip the problemXML
+use http://code.google.com/p/gwt-lzma/
+unzipped in downloads
+copied org/ folder to workspace
+	it made lots of top-level directories for each subdir!
+	try importing it - no good
+	drag it in to src/
+	
+may not work - it looks like zip is not designed to run in a browser
+	there's a warning at the site for gwt-lzma
+take it out
+
+use one-byte to 2-byte compression
+	write algorithm - safe as long as we use ascii
+	
+just make the xml tags smaller for organisms
+	Organism = "O"
+		id = "i"
+		CageId = "c"
+		male = use "S" = "M" (male) or "F" (female)
+	Chromosome = "C"
+		id = "PA", "MA", "PS", "MS"
+		size = "s"
+	Allele = "A"
+		GeneIndex = "i"
+		TraitNumber = "n"
+
+almost working...
+
+4/19/13
+got it working
+can make it more compact
+	for allele, give i = <GeneIndex>,<TraitNumber>
+	for organism, collapse id, cageId, sex into comma-sep
+seems to be working with 2 genes
+
+set up layout to be more pretty
+set up on practice mode
+	can't save
+	model builder shows model
+working!
+
+tried compiling it
+runs aok on firefox
+on chrome, get error:
+Unsafe JavaScript attempt to access frame with URL 
+	file:///Users/brian/git/JavaCodeFromSVN/jsVGL/war/JsVGL.html 
+	from frame with URL file:///Users/brian/git/JavaCodeFromSVN/jsVGL/war/jsvgl/1629246A986A8ED8C204259F41AF0F24.cache.html. 
+	Domains, protocols and ports must match.
+
+really unclear what this means...
+some hint here http://maxrohde.com/2011/05/20/gwt-script-does-not-load-in-chrome-and-internet-explorer/
+the hint there said to put on web server
+tried on securebio and it works!
+	http://www.securebio.umb.edu/edX/war/JsVGL.html
+
+problems with supercross
+	one with a two gene problem and 2000 offspring saves 290,586 bytes (uncompressed)
+	a single field pop cage took 6,020 bytes (uncompressed)
+	
+possible solution: the problem is just supercross
+	- for supercross only:
+		just save the organisms that are displayed
+		save the counts for display
+add field to Organism: visibleInCage - if it is visible in the CageUI
+	for regular cages, all are visible
+	for super cross, only save and load visible ones
+
+almost working - two bugs
+	- on re-open, there are fewer orgs in the supercross panel
+	- on re-reopen from intermediate save, there's an error missing parent.
+	(probably related)
+
+4/20/13
+	- problem is, on save of already processed super cross cage, the code that finds a subset of orgs to display
+		loses some because it expects a huge number, so not showing them all is ok
+	solution: add boolean alreadyBeenTrimmed (set on loading a supercross from xml) => means:
+		- should lay out orgs like regular cross
+		- display counts using saved data not counts of organisms saved
+took a little doing
+	- layout is not exactly the same as regular
+	- need to be careful about saving actual counts in super cross vs saved counts
+WORKING!
+
+4/22/13
+problem with super cross display 
+	if only one row of offspring, need to add spacer row just in case
+ FIXED
+
+4/23/13
+need to export public methods for access from javascript in page
+	https://developers.google.com/web-toolkit/doc/latest/DevGuideCodingBasicsJSNI
+got it going
+
+some bugs
+- sex linkage not grading right
+- linkage panel is ugly
+	

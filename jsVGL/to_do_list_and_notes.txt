@@ -1,0 +1,164 @@
+use DialogBox for JDialogs (cages etc)
+look here for ui info https://developers.google.com/web-toolkit/doc/latest/DevGuideUiPanels
+button info http://stackoverflow.com/questions/1456889/image-in-gwt-button
+	probably use setHTML() method of Button
+will need to make js page that translates back & forth between base64zip and plain text
+
+for images, use imageresource
+- where to put images: http://stackoverflow.com/questions/3447311/how-to-clientbundle-in-gwt
+- how to use? https://developers.google.com/web-toolkit/doc/latest/DevGuideClientBundle
+
+also good gui stuff here http://examples.roughian.com/index.htm
+
+drawing on a panel http://code.google.com/p/gwt-g2d/wiki/Hello_World - ng -this doesn't work with gwt
+
+color for dominance lines & text #800000
+
+for passing params: 
+
+for positioning the dialogboxes DialogBox.PopupPosition()
+
+for pretty-printing the xml, use http://www.freeformatter.com/xml-formatter.html
+ 
+when the red exclamation point shows up in eclipse, 
+	project -> properties -> java build path 
+		edit AppEngine to point to specific one - choose the only one in the list
+	OR
+	project -> properties -> java build path
+		gwt-user.jar
+			you can find it in /Applications/eclipse/plugins/com.google.gwt.eclipse.sdkbundle../gwt-2.5.0/
+
+when using egit
+	saving changes
+		team -> add to index
+		team -> commit
+		team -> push to upstream
+	loading from server
+		team -> pull
+
+		if pull gives out of sync error
+			team -> reset
+				HARD reset to master
+		then team -> pull
+
+for doing the summary chart - probably not that hard: just do an html table!
+chi-square calc from: http://www.quantpsy.org/chisq/chisq.htm
+function ChiSq(x,n) { 
+   if(n==1 & x>1000) {return 0} 
+   if(x>1000 | n>1000) { 
+       var q=ChiSq((x-n)*(x-n)/(2*n),1)/2 
+       if(x>n) {return q} {return 1-q} 
+       } 
+   var p=Math.exp(-0.5*x); if((n%2)==1) { p=p*Math.sqrt(2*x/Pi) } 
+   var k=n; while(k>=2) { p=p*x/k; k=k-2 } 
+   var t=p; var a=n; while(t>0.0000000001*p) { a=a+2; t=t*x/a; p=p+t } 
+   return 1-p 
+   } 
+ 
+ also from http://www.fourmilab.ch/rpkp/experiments/analysis/chiCalc.html
+ http://www.fourmilab.ch/rpkp/experiments/analysis/chiCalc.js
+     /*  POZ  --  probability of normal z value
+
+        Adapted from a polynomial approximation in:
+                Ibbetson D, Algorithm 209
+                Collected Algorithms of the CACM 1963 p. 616
+        Note:
+                This routine has six digit accuracy, so it is only useful for absolute
+                z values < 6.  For z values >= to 6.0, poz() returns 0.0.
+    */
+
+    function poz(z) {
+        var y, x, w;
+        var Z_MAX = 6.0;              /* Maximum meaningful z value */
+        
+        if (z == 0.0) {
+            x = 0.0;
+        } else {
+            y = 0.5 * Math.abs(z);
+            if (y >= (Z_MAX * 0.5)) {
+                x = 1.0;
+            } else if (y < 1.0) {
+                w = y * y;
+                x = ((((((((0.000124818987 * w
+                         - 0.001075204047) * w + 0.005198775019) * w
+                         - 0.019198292004) * w + 0.059054035642) * w
+                         - 0.151968751364) * w + 0.319152932694) * w
+                         - 0.531923007300) * w + 0.797884560593) * y * 2.0;
+            } else {
+                y -= 2.0;
+                x = (((((((((((((-0.000045255659 * y
+                               + 0.000152529290) * y - 0.000019538132) * y
+                               - 0.000676904986) * y + 0.001390604284) * y
+                               - 0.000794620820) * y - 0.002034254874) * y
+                               + 0.006549791214) * y - 0.010557625006) * y
+                               + 0.011630447319) * y - 0.009279453341) * y
+                               + 0.005353579108) * y - 0.002141268741) * y
+                               + 0.000535310849) * y + 0.999936657524;
+            }
+        }
+        return z > 0.0 ? ((x + 1.0) * 0.5) : ((1.0 - x) * 0.5);
+    }
+
+ 
+    var BIGX = 20.0;                  /* max value to represent exp(x) */
+
+    function ex(x) {
+        return (x < -BIGX) ? 0.0 : Math.exp(x);
+    }   
+
+    /*  POCHISQ  --  probability of chi-square value
+
+              Adapted from:
+                      Hill, I. D. and Pike, M. C.  Algorithm 299
+                      Collected Algorithms for the CACM 1967 p. 243
+              Updated for rounding errors based on remark in
+                      ACM TOMS June 1985, page 185
+    */
+
+    function pochisq(x, df) {
+        var a, y, s;
+        var e, c, z;
+        var even;                     /* True if df is an even number */
+
+        var LOG_SQRT_PI = 0.5723649429247000870717135; /* log(sqrt(pi)) */
+        var I_SQRT_PI = 0.5641895835477562869480795;   /* 1 / sqrt(pi) */
+        
+        if (x <= 0.0 || df < 1) {
+            return 1.0;
+        }
+        
+        a = 0.5 * x;
+        even = !(df & 1);
+        if (df > 1) {
+            y = ex(-a);
+        }
+        s = (even ? y : (2.0 * poz(-Math.sqrt(x))));
+        if (df > 2) {
+            x = 0.5 * (df - 1.0);
+            z = (even ? 1.0 : 0.5);
+            if 
+            (a > BIGX) {
+                e = (even ? 0.0 : LOG_SQRT_PI);
+                c = Math.log(a);
+                while (z <= x) {
+                    e = Math.log(z) + e;
+                    s += ex(c * z - a - e);
+                    z += 1.0;
+                }
+                return s;
+            } else {
+                e = (even ? 1.0 : (I_SQRT_PI / Math.sqrt(a)));
+                c = 0.0;
+                while (z <= x) {
+                    e = e * (a / z);
+                    c = c + e;
+                    z += 1.0;
+                }
+                return c * y + s;
+            }
+        } else {
+            return s;
+        }
+    }
+ 
+ testing

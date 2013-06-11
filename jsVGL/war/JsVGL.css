@@ -1,0 +1,167 @@
+/** Add css rules here for your application. */
+
+/** front panel items */
+.jsVGL_Button {
+	padding: 5px;
+	border: 1px solid #000000;
+	text-decoration: none;
+	background-color: #f0f0f0;
+}
+
+.jsVGL_Button:hover:enabled {
+	background-color: #d0d0d0;
+}
+
+.jsVGL_CrossButton {
+	
+}
+
+.jsVGL_CrossButton:enabled {
+	
+}
+
+.jsVGL_CagePanel {
+	
+}
+
+/** settings for Organisms and Cages */
+.jsVGL_OrganismUI {
+	border: none;
+	width: 17px;
+	height: 17px;
+}
+
+.jsVGL_CageUI {
+	border-style: solid;
+	border-width: 2px;
+	border-color: #3F5D89;
+	color: #3F5D89;
+	background: #e0e0e0;
+}
+
+.jsVGL_FieldPopDetailsPanel {
+	border-style: solid;
+	border-width: 2px;
+	border-color: #497574;
+	background: #d0d0d0;
+	color: #497574;
+}
+
+.jsVGL_RegularDetailsPanel {
+	border-style: solid;
+	border-width: 2px;
+	border-color: #a1ad2a;
+	color: #a1ad2a;
+	background: #d0d0d0;
+}
+
+.jsVGL_ParentInfoPanel {
+	border-style: solid;
+	border-width: 2px;
+	border-color: #845589;
+	background: #f0f0f0;
+	color: #845589;
+	
+}
+
+.jsVGL_CageInfoSubPanels {
+	color: black;
+	background: #f8f8f8;
+	
+}
+
+.jsVGL_CountLabel {
+	border: none;
+	width: 17px;
+	height: 17px;
+}
+
+.jsVGL_OrganismRowPanel {
+	border: none;
+	padding-bottom: 5px;
+}
+
+.jsVGL_PhenotypeRowPanel {
+	border: none;
+	padding-bottom: 21px;
+}
+
+.jsVGL_CountRowPanel {
+	border: none;
+	padding-bottom: 5px;
+}
+
+.jsVGL_CrossLabel {
+	width: 30px;
+	text-align: center;
+}
+
+
+/** settings for ModelBuilder */
+
+.jsVGL_SexLinkagePanel {
+	border: solid;
+	border-width: 2px;
+	border-color: #497574;
+	color: #497574;
+	background: #f8f8f8;	
+}
+
+.jsVGL_NumAllelesPanel {
+	border: solid;
+	border-width: 2px;
+	border-color: #a1ad2a;
+	color: #a1ad2a;
+	background: #f8f8f8;	
+}
+
+.jsVGL_InteractionTypePanel {
+	border: solid;
+	border-width: 2px;
+	border-color: #845589;
+	color: #845589;
+	background: #f8f8f8;	
+}
+
+.jsVGL_InteractionDetailsPanel {
+	border: solid;
+	border-width: 2px;
+	border-color: #3f5d89;
+	color: #3f5d89;
+	background: #f8f8f8;	
+}
+
+.jsVGL_LinkagePanel {
+	border: solid;
+	border-width: 2px;
+	border-color: #798ebb;
+	color: #798ebb;
+	background: #f8f8f8;	
+}
+
+.jsVGL_RelevantCrossPanel {
+	border: solid;
+	border-width: 2px;
+	border-color: black;
+	color: black;
+	background: #f8f8f8;	
+}
+
+.jsVGL_ThreeCircPanel {
+	background-image: url('jsvgl/gwt/clean/images/ThreeCircPanelBG.png');
+}
+
+.jsVGL_ThreeIncPanel {
+	background-image: url('jsvgl/gwt/clean/images/ThreeIncPanelBkG.png');
+}
+
+.jsVGL_ComplementationPanel {
+	background-image: url('jsvgl/gwt/clean/images/ComplementationPanelBG.png');
+}
+
+.jsVGL_SubdividerPanel {
+	border: solid;
+	border-color: #806060;
+}
+
+
